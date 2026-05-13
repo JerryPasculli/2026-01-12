@@ -38,8 +38,8 @@ class Model:
     def popola(self):
         return DAO.getAllYears()
 
-    def piuAnziani(self):
-        anni = DAO.getAnni()
+    def piuAnziani(self, anno1, anno2):
+        anni = DAO.getAnni(anno1, anno2)
         for element in anni:
             nodo = self._Dnodi.get(element[0])
             if nodo != None:
@@ -52,10 +52,10 @@ class Model:
                 return False
         return True
 
-    def ricorsione(self, k):
+    def ricorsione(self, k, anno1, anno2):
         self._soluzione = []
         self._top = inf
-        self.piuAnziani()
+        self.piuAnziani(anno1, anno2)
         for element in self._nodi:
             parziale = [element]
             self.itera(parziale, k)

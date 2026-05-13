@@ -40,7 +40,7 @@ class View(ft.UserControl):
 
         self._txtInK = ft.TextField(label="Num di costruttori")
         self._btnCerca = ft.ElevatedButton(text="Cerca lista costruttori", disabled =True,
-                                           on_click= lambda e: self._controller.handleCerca(e, self._txtInK.value))
+                                           on_click= lambda e: self._controller.handleCerca(e, self._txtInK.value, self._ddAnno1.value, self._ddAnno2.value))
         row3 = ft.Row([ft.Container(self._txtInK, width=250), ft.Container(self._btnCerca, width=250)], alignment=ft.MainAxisAlignment.CENTER)
 
         self._page.controls.append(row1)

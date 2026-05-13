@@ -75,17 +75,22 @@ group by p1.constructorId, p2.constructorId"""
         return results
 
     @staticmethod
-    def getAnni():
+    def getAnni(anno1, anno2):
         conn = DBConnect.get_connection()
 
         results = []
 
         cursor = conn.cursor()
-        query = """select constructorId, max(dob)
-from results r1, drivers d
+        query = """with piloti as (select constructorId, driverId 
+from results r1, races r
+where r.raceid = r1.raceid and 
+r1.position is not null and r.year between %s and %s
+group by constructorId, driverId) 
+select constructorId, min(dob)
+from piloti r1, drivers d
 where r1.driverId = d.driverId
 group by constructorId"""
-        cursor.execute(query)
+        cursor.execute(query, [anno1, anno2])
 
         for row in cursor:
             results.append(row)

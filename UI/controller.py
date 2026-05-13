@@ -19,7 +19,7 @@ class Controller:
 
     def handleCreaGrafo(self,e, data1, data2):
         self._view.txt_result.controls.clear()
-        if data1>data2:
+        if data1 is None or data2 is None or data1>data2:
             self._view.txt_result.controls.append(ft.Text(f"Hai selezionato un range non valido", color = "red"))
             self._view.update_page()
             return
@@ -43,8 +43,12 @@ class Controller:
         self._view.update_page()
 
 
-    def handleCerca(self, e, k):
+    def handleCerca(self, e, k, data1, data2):
         self._view.txt_result.controls.clear()
+        if data1 is None or data2 is None or data1>data2:
+            self._view.txt_result.controls.append(ft.Text(f"Hai selezionato un range non valido", color = "red"))
+            self._view.update_page()
+            return
         try:
             int(k)
         except ValueError:
@@ -59,7 +63,7 @@ class Controller:
             self._view.update_page()
             return
         else:
-            titolo, testo = self._model.ricorsione(int(k))
+            titolo, testo = self._model.ricorsione(int(k), int(data1), int(data2))
             self._view.txt_result.controls.append(ft.Text(f"{titolo}"))
             self._view.txt_result.controls.append(ft.Text(f"{testo}"))
             self._view.update_page()
