@@ -25,22 +25,22 @@ class View(ft.UserControl):
 
         self._ddAnno1 = ft.Dropdown(label="Da", hint_text="Anno")
         self._ddAnno2 = ft.Dropdown(label="A", hint_text="Anno")
-        self._btnCreaGrafo = ft.ElevatedButton(text="Crea Grafo", on_click=self._controller.handleCreaGrafo)
+        self._btnCreaGrafo = ft.ElevatedButton(text="Crea Grafo", disabled=True, on_click= lambda e: self._controller.handleCreaGrafo(e, self._ddAnno1.value, self._ddAnno2.value))
 
         cont1 = ft.Container(self._ddAnno1, width=250)
         cont2 = ft.Container(self._ddAnno2, width=250)
         row1 = ft.Row([cont1,cont2, self._btnCreaGrafo], alignment=ft.MainAxisAlignment.CENTER,
                       vertical_alignment=ft.CrossAxisAlignment.END)
 
-        self._btnstampa = ft.ElevatedButton(text="Stampa Dettagli",
+        self._btnstampa = ft.ElevatedButton(text="Stampa Dettagli", disabled=True,
                                            on_click=self._controller.handleDettagli)
         row2 = ft.Row([ft.Container(self._btnstampa, width=250)
                        ], alignment=ft.MainAxisAlignment.CENTER)
 
 
         self._txtInK = ft.TextField(label="Num di costruttori")
-        self._btnCerca = ft.ElevatedButton(text="Cerca lista costruttori",
-                                           on_click=self._controller.handleCerca)
+        self._btnCerca = ft.ElevatedButton(text="Cerca lista costruttori", disabled =True,
+                                           on_click= lambda e: self._controller.handleCerca(e, self._txtInK.value))
         row3 = ft.Row([ft.Container(self._txtInK, width=250), ft.Container(self._btnCerca, width=250)], alignment=ft.MainAxisAlignment.CENTER)
 
         self._page.controls.append(row1)
@@ -48,6 +48,7 @@ class View(ft.UserControl):
         self._page.controls.append(row3)
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         self._page.controls.append(self.txt_result)
+        self._controller.popolaAnni()
         self._page.update()
 
     def set_controller(self, controller):

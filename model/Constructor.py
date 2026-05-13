@@ -7,6 +7,7 @@ class Constructor:
     constructorRef: str
     name: str
     nationality: str
+    url: str
     oldest_driver_dob: datetime.date = None
 
     def __hash__(self):
@@ -14,3 +15,6 @@ class Constructor:
 
     def __str__(self):
         return f"{self.constructorRef} ({self.name})"
+
+    def __lt__(self, other):
+        return self.oldest_driver_dob<other.oldest_driver_dob
